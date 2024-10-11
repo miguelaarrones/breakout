@@ -4,6 +4,7 @@
 #include <vector>
 #include "SpriteRenderer.h"
 #include "GameLevel.h"
+#include "BallObject.h"
 
 enum GameState
 {
@@ -28,11 +29,15 @@ public:
 	unsigned int currentLevel;
 
 	GameObject *Player;
-
+	BallObject *Ball;
 
 	// Initial values for the player paddle
 	const glm::vec2 PLAYER_SIZE;
 	const float PLAYER_VELOCITY;
+
+	// Initial values for the ball
+	const float BALL_RADIUS;
+	const glm::vec2 INITIAL_BALL_VELOCITY;
 
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();
