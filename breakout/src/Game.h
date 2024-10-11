@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "SpriteRenderer.h"
+
 enum GameState
 {
 	GAME_ACTIVE,
@@ -16,6 +18,9 @@ public:
 	
 	GameState State;
 	bool Keys[1024];
+	int Width;
+	int Height;
+	SpriteRenderer *Renderer;
 
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();
