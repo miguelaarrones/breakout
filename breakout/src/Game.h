@@ -27,6 +27,13 @@ public:
 	std::vector<GameLevel> Levels;
 	unsigned int currentLevel;
 
+	GameObject *Player;
+
+
+	// Initial values for the player paddle
+	const glm::vec2 PLAYER_SIZE;
+	const float PLAYER_VELOCITY;
+
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();
 

@@ -93,5 +93,8 @@
     <Image Include="assets\textures\background.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\textures\paddle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

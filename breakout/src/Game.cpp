@@ -1,15 +1,18 @@
 #include "Game.h"
 #include "ResourceManager.h"
 #include <glm/ext/matrix_clip_space.hpp>
+#include <GLFW/glfw3.h>
 
 Game::Game(unsigned int width, unsigned int height)
-	: State(GAME_ACTIVE), Keys(), Width(width), Height(height)
+	: State(GAME_ACTIVE), Keys(), Width(width), Height(height),
+	PLAYER_SIZE(100.0f, 20.0f), PLAYER_VELOCITY(500.0f)
 {
 }
 
 Game::~Game()
 {
 	delete Renderer;
+	delete Player;
 }
 
 void Game::Init()
@@ -34,6 +37,7 @@ void Game::Init()
 	ResourceManager::LoadTexture("assets/textures/awesomeface.png", true, "face");
 	ResourceManager::LoadTexture("assets/textures/block.png", false, "block");
 	ResourceManager::LoadTexture("assets/textures/block_solid.png", false, "block_solid");
+	ResourceManager::LoadTexture("assets/textures/paddle.png", true, "paddle");
 
 	// Load levels
 	GameLevel one;
@@ -50,10 +54,33 @@ void Game::Init()
 	this->Levels.push_back(three);
 	this->Levels.push_back(four);
 	this->currentLevel = 0;
+
+	// Configure GameObjects
+	glm::vec2 playerPos = glm::vec2(
+		this->Width/ 2.0f - PLAYER_SIZE.x / 2.0f,
+		this->Height - PLAYER_SIZE.y
+	);
+	Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
 }
 
 void Game::ProcessInput(float dt)
 {
+	if (this->State == GAME_ACTIVE)
+	{
+		float velocity = PLAYER_VELOCITY * dt;
+		
+		// Move player paddle
+		if (this->Keys[GLFW_KEY_A])
+		{
+			if (Player->Position.x >= 0.0f)
+				Player->Position.x -= velocity;
+		}
+		if (this->Keys[GLFW_KEY_D])
+		{
+			if (Player->Position.x <= this->Width - Player->Size.x)
+				Player->Position.x += velocity;
+		}
+	}
 }
 
 void Game::Update(float dt)
@@ -71,5 +98,8 @@ void Game::Render()
 
 		// Draw level
 		this->Levels[this->currentLevel].Draw(*Renderer);
+
+		// Draw player
+		this->Player->Draw(*Renderer);
 	}
 }
