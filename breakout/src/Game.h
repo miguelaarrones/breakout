@@ -1,7 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <vector>
 #include "SpriteRenderer.h"
+#include "GameLevel.h"
 
 enum GameState
 {
@@ -21,6 +23,9 @@ public:
 	int Width;
 	int Height;
 	SpriteRenderer *Renderer;
+
+	std::vector<GameLevel> Levels;
+	unsigned int currentLevel;
 
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();

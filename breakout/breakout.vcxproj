@@ -153,6 +153,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameLevel.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
     <ClCompile Include="src\3rdParty\stb_image.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
@@ -163,6 +165,8 @@
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameLevel.h" />
+    <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\SpriteRenderer.h" />
     <ClInclude Include="src\3rdParty\stb_image.h" />
     <ClInclude Include="src\ResourceManager.h" />
@@ -171,11 +175,18 @@
     <ClInclude Include="src\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\levels\one.lvl" />
+    <None Include="assets\levels\two.lvl" />
+    <None Include="assets\levels\three.lvl" />
+    <None Include="assets\levels\four.lvl" />
     <None Include="assets\shaders\sprite.frag" />
     <None Include="assets\shaders\sprite.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\awesomeface.png" />
+    <Image Include="assets\textures\background.jpg" />
+    <Image Include="assets\textures\block.png" />
+    <Image Include="assets\textures\block_solid.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
