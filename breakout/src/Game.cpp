@@ -14,12 +14,15 @@ Game::~Game()
 {
 	delete Renderer;
 	delete Player;
+	delete Ball;
+	delete Particles;
 }
 
 void Game::Init()
 {
 	// Load shaders
 	ResourceManager::LoadShader("assets/shaders/sprite.vert", "assets/shaders/sprite.frag", nullptr, "sprite");
+	ResourceManager::LoadShader("assets/shaders/particle.vert", "assets/shaders/particle.frag", nullptr, "particle");
 
 	// Configure shaders
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, 
@@ -28,10 +31,10 @@ void Game::Init()
 		0.0f, -1.0f,1.0f);
 	
 	ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
-	ResourceManager::GetShader("sprite").Use().SetMatrix4("projection", projectionMatrix);
+	ResourceManager::GetShader("sprite").SetMatrix4("projection", projectionMatrix);
 
-	// Set render-specific controls
-	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+	ResourceManager::GetShader("particle").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("particle").SetMatrix4("projection", projectionMatrix);
 
 	// Load texture
 	ResourceManager::LoadTexture("assets/textures/background.jpg", false, "background");
@@ -39,6 +42,15 @@ void Game::Init()
 	ResourceManager::LoadTexture("assets/textures/block.png", false, "block");
 	ResourceManager::LoadTexture("assets/textures/block_solid.png", false, "block_solid");
 	ResourceManager::LoadTexture("assets/textures/paddle.png", true, "paddle");
+	ResourceManager::LoadTexture("assets/textures/particle.png", true, "particle");
+
+	// Set render-specific controls
+	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+	Particles = new ParticleGenerator(
+		ResourceManager::GetShader("particle"),
+		ResourceManager::GetTexture("particle"),
+		500
+	);
 
 	// Load levels
 	GameLevel one;
@@ -114,6 +126,9 @@ void Game::Update(float dt)
 		this->ResetLevel();
 		this->ResetPlayer();
 	}
+
+	// Update particles
+	Particles->Update(dt, *Ball, 2, glm::vec2(Ball->Radius / 2.0f));
 }
 
 void Game::Render()
@@ -130,6 +145,9 @@ void Game::Render()
 
 		// Draw player
 		this->Player->Draw(*Renderer);
+
+		// Render particles
+		Particles->Draw();
 
 		// Draw ball
 		Ball->Draw(*Renderer);

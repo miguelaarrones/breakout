@@ -5,6 +5,7 @@
 #include "SpriteRenderer.h"
 #include "GameLevel.h"
 #include "BallObject.h"
+#include "ParticleGenerator.h"
 
 enum GameState
 {
@@ -40,6 +41,8 @@ public:
 
 	GameObject *Player;
 	BallObject *Ball;
+
+	ParticleGenerator *Particles;
 
 	// Initial values for the player paddle
 	const glm::vec2 PLAYER_SIZE;
