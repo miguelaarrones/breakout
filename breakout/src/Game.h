@@ -13,6 +13,16 @@ enum GameState
 	GAME_WIN
 };
 
+enum Direction
+{
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT
+};
+
+typedef std::tuple<bool, Direction, glm::vec2> Collision;
+
 class Game
 {
 public:
@@ -46,6 +56,19 @@ public:
 	void ProcessInput(float dt);
 	void Update(float dt);
 	void Render();
+	void DoCollisions();
+
+	void ResetLevel();
+	void ResetPlayer();
+
+	// Collisions
+	// AABB - AABB collision (axis-aligned bounding box)
+	bool CheckCollision(GameObject &one, GameObject &two);
+
+	// AABB - Circle collision
+	Collision CheckCollision(BallObject &one, GameObject &two);
+
+	Direction VectorDirection(glm::vec2 target);
 };
 
 #endif // !GAME_H
