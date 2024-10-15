@@ -16,6 +16,7 @@ Game::~Game()
 	delete Player;
 	delete Ball;
 	delete Particles;
+	delete Effects;
 }
 
 void Game::Init()
@@ -23,6 +24,7 @@ void Game::Init()
 	// Load shaders
 	ResourceManager::LoadShader("assets/shaders/sprite.vert", "assets/shaders/sprite.frag", nullptr, "sprite");
 	ResourceManager::LoadShader("assets/shaders/particle.vert", "assets/shaders/particle.frag", nullptr, "particle");
+	ResourceManager::LoadShader("assets/shaders/post_processing.vert", "assets/shaders/post_processing.frag", nullptr, "postprocessing");
 
 	// Configure shaders
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, 
@@ -50,6 +52,12 @@ void Game::Init()
 		ResourceManager::GetShader("particle"),
 		ResourceManager::GetTexture("particle"),
 		500
+	);
+
+	Effects = new PostProcessor(
+		ResourceManager::GetShader("postprocessing"), 
+		this->Width, 
+		this->Height
 	);
 
 	// Load levels
@@ -129,12 +137,21 @@ void Game::Update(float dt)
 
 	// Update particles
 	Particles->Update(dt, *Ball, 2, glm::vec2(Ball->Radius / 2.0f));
+
+	if (EffectsShakeTime > 0.0f)
+	{
+		EffectsShakeTime -= dt;
+		if (EffectsShakeTime <= 0.0f)
+			Effects->Shake = false;
+	}
 }
 
 void Game::Render()
 {
 	if (this->State == GAME_ACTIVE)
 	{
+		Effects->BeginRender();
+
 		// Draw background
 		Renderer->DrawSprite(ResourceManager::GetTexture("background"),
 			glm::vec2(0.0f, 0.0f), glm::vec2(this->Width, this->Height), 0.0f
@@ -151,6 +168,10 @@ void Game::Render()
 
 		// Draw ball
 		Ball->Draw(*Renderer);
+
+		Effects->EndRender();
+		Effects->Render(glfwGetTime());
+
 	}
 }
 
@@ -168,6 +189,12 @@ void Game::DoCollisions()
 				// Destroy block if not solid
 				if (!box.IsSolid)
 					box.Destroyed = true;
+				else
+				{
+					// If block is solid, enable shake effect
+					EffectsShakeTime = 0.05f;
+					Effects->Shake = true;
+				}
 				
 				// Collision resolution
 				Direction dir = std::get<1>(collision);

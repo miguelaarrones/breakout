@@ -6,6 +6,7 @@
 #include "GameLevel.h"
 #include "BallObject.h"
 #include "ParticleGenerator.h"
+#include "PostProcessor.h"
 
 enum GameState
 {
@@ -43,6 +44,9 @@ public:
 	BallObject *Ball;
 
 	ParticleGenerator *Particles;
+	
+	PostProcessor *Effects;
+	float EffectsShakeTime = 0.0f;
 
 	// Initial values for the player paddle
 	const glm::vec2 PLAYER_SIZE;
