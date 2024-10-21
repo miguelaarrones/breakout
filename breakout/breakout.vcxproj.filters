@@ -89,6 +89,9 @@
     <ClInclude Include="src\PostProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\PowerUp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\sprite.frag" />
@@ -117,6 +120,24 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\particle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\powerup_chaos.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\powerup_confuse.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\powerup_increase.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\powerup_passthrough.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\powerup_speed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\powerup_sticky.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

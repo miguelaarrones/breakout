@@ -7,6 +7,7 @@
 #include "BallObject.h"
 #include "ParticleGenerator.h"
 #include "PostProcessor.h"
+#include "PowerUp.h"
 
 enum GameState
 {
@@ -48,6 +49,8 @@ public:
 	PostProcessor *Effects;
 	float EffectsShakeTime = 0.0f;
 
+	std::vector<PowerUp> PowerUps;
+
 	// Initial values for the player paddle
 	const glm::vec2 PLAYER_SIZE;
 	const float PLAYER_VELOCITY;
@@ -67,6 +70,11 @@ public:
 
 	void ResetLevel();
 	void ResetPlayer();
+
+	void SpawnPowerUps(GameObject& block);
+	void ActivatePowerUp(PowerUp& powerUp);
+	void UpdatePowerUps(float dt);
+	bool IsOtherPowerUpActive(std::vector<PowerUp>& powerUps, std::string type);
 
 	// Collisions
 	// AABB - AABB collision (axis-aligned bounding box)

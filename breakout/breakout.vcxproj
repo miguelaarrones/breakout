@@ -173,6 +173,7 @@
     <ClInclude Include="src\BallObject.h" />
     <ClInclude Include="src\GameLevel.h" />
     <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\PowerUp.h" />
     <ClInclude Include="src\SpriteRenderer.h" />
     <ClInclude Include="src\3rdParty\stb_image.h" />
     <ClInclude Include="src\ResourceManager.h" />
@@ -197,6 +198,12 @@
     <Image Include="assets\textures\block_solid.png" />
     <Image Include="assets\textures\paddle.png" />
     <Image Include="assets\textures\particle.png" />
+    <Image Include="assets\textures\powerup_chaos.png" />
+    <Image Include="assets\textures\powerup_confuse.png" />
+    <Image Include="assets\textures\powerup_increase.png" />
+    <Image Include="assets\textures\powerup_passthrough.png" />
+    <Image Include="assets\textures\powerup_speed.png" />
+    <Image Include="assets\textures\powerup_sticky.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
