@@ -93,6 +93,8 @@ void Game::Init()
 	glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2.0f - BALL_RADIUS,
 											  -BALL_RADIUS * 2.0f);
 	Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
+
+	SoundEngine->play2D("assets/audio/breakout.mp3", true);
 }
 
 void Game::ProcessInput(float dt)
@@ -206,12 +208,14 @@ void Game::DoCollisions()
 				{
 					box.Destroyed = true;
 					this->SpawnPowerUps(box);
+					SoundEngine->play2D("assets/audio/bleep.mp3", false);
 				}
 				else
 				{
 					// If block is solid, enable shake effect
 					EffectsShakeTime = 0.05f;
 					Effects->Shake = true;
+					SoundEngine->play2D("assets/audio/solid.wav", false);
 				}
 				
 				// Collision resolution
@@ -267,6 +271,8 @@ void Game::DoCollisions()
 		Ball->Velocity = glm::normalize(Ball->Velocity) * glm::length(oldVelocity);
 
 		Ball->Stuck = Ball->Sticky;
+
+		SoundEngine->play2D("assets/audio/bleep.wav", false);
 	}
 
 	for (PowerUp &powerUp : this->PowerUps)
@@ -280,6 +286,7 @@ void Game::DoCollisions()
 				ActivatePowerUp(powerUp);
 				powerUp.Destroyed = true;
 				powerUp.Activated = true;
+				SoundEngine->play2D("assets/audio/powerup.wav", false);
 			}
 		}
 	}

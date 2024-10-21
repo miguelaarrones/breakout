@@ -141,4 +141,17 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\audio\bleep.mp3" />
+    <Media Include="assets\audio\bleep.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="assets\audio\breakout.mp3" />
+    <Media Include="assets\audio\powerup.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="assets\audio\solid.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

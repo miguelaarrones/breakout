@@ -2,6 +2,8 @@
 #define GAME_H
 
 #include <vector>
+#include <irrKlang/irrKlang.h>
+
 #include "SpriteRenderer.h"
 #include "GameLevel.h"
 #include "BallObject.h"
@@ -37,6 +39,7 @@ public:
 	int Width;
 	int Height;
 	SpriteRenderer *Renderer;
+	irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();
 
 	std::vector<GameLevel> Levels;
 	unsigned int currentLevel;
